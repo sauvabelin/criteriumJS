@@ -54,11 +54,11 @@ class DB {
             const name = this.formatName(dbname);
             await this.run(`create INDEXEDDB database if not exists ${name}`);
             await this.useDB(name);
-            await this.run(`create table ${INSCRIPTIONS} (id INT AUTO_INCREMENT, dossard INT, nom STRING, prenom STRING, naissance INT, unitId INT)`);
-            await this.run(`create table ${COURSES} (id INT AUTO_INCREMENT, nom STRING)`);
-            await this.run(`create table ${POSTES} (id INT AUTO_INCREMENT, nom STRING, max INT, coefficient INT)`);
-            await this.run(`create table ${COURSES_INSCRIPTIONS} (id INT AUTO_INCREMENT, dossard INT, debut DATE, arrivee DATE)`);
-            await this.run(`create table ${POSTES_INSCRIPTIONS} (id INT AUTO_INCREMENT, dossard INT, points INT)`);
+            await this.run(`create table ${INSCRIPTIONS} (id STRING, dossard INT, nom STRING, prenom STRING, naissance INT, unitId INT)`);
+            await this.run(`create table ${COURSES} (id STRING, nom STRING)`);
+            await this.run(`create table ${POSTES} (id STRING, nom STRING, max INT, coefficient INT)`);
+            await this.run(`create table ${COURSES_INSCRIPTIONS} (id STRING, dossard INT, debut DATE, arrivee DATE)`);
+            await this.run(`create table ${POSTES_INSCRIPTIONS} (id STRING, dossard INT, points INT)`);
             console.log('Installed db');
             localStorage.setItem(LS_KEY, JSON.stringify([name].concat(this.getDatabaseNames())));
         }

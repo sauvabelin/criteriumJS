@@ -29,5 +29,22 @@ export default new Router({
                 },
             ],
         },
+        {
+            path: '/postes',
+            name: 'Postes',
+            component: () => import(/* webpackChunkName: "postes" */ './views/Postes.vue'),
+            children: [
+                {
+                    path: 'nouveau',
+                    name: 'Nouveau poste',
+                    component: () => import(/* webpackChunkName: "nouveau-poste" */ './views/Postes/Nouveau.vue'),
+                },
+                {
+                    path: 'gestion/:id',
+                    name: 'Gestion',
+                    component: () => import(/* webpackChunkName: "gestion-poste" */ './views/Postes/Gestion.vue'),
+                },
+            ],
+        },
     ],
 });

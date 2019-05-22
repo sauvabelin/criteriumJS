@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="p-3">
-            <h1 class="m-0">Importation</h1>
-            <h3 class="m-0">Importer de nouveaux participants dans le système, copiez-collez les cellules de votre fichier excel ci-dessous</h3>
+            <h1>Importation</h1>
+            <h3>Importer de nouveaux participants dans le système, copiez-collez les cellules de votre fichier excel ci-dessous</h3>
             <div class="pt-4 row">
                 <div class="col-8">
                     <hot-table ref="tableur" stretchH="all" :colHeaders="headers" licenseKey="non-commercial-and-evaluation" />

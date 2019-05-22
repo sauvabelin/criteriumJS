@@ -1,25 +1,17 @@
 import Base from './Base';
-import db, { INSCRIPTIONS } from '../db';
+import { INSCRIPTIONS } from '../db';
 import { getUnite, getSousUnite } from '../unites';
 
 const PROPERTIES = ['dossard', 'nom', 'prenom', 'naissance', 'unitId'];
 
 class Participant extends Base {
     constructor() {
-        super(INSCRIPTIONS, PROPERTIES);
+        super();
         this.dossard = null;
         this.nom = null;
         this.prenom = null;
         this.naissance = null;
         this.unitId = null;
-    }
-
-    getPostesResults() {
-
-    }
-
-    getCoursesResults() {
-
     }
 
     unite() {
@@ -29,16 +21,9 @@ class Participant extends Base {
     sousUnite() {
         return getSousUnite(this.unitId);
     }
-
-    static findAll() {
-        return db.run(`select * from ${INSCRIPTIONS}`).then(data => data.map((item) => {
-            const p = new Participant();
-            PROPERTIES.concat(['id']).forEach((property) => {
-                p[property] = item[property];
-            });
-            return p;
-        }));
-    }
 }
+
+Participant.table = INSCRIPTIONS;
+Participant.properties = PROPERTIES;
 
 export default Participant;

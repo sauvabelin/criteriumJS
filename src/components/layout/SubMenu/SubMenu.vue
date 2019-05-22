@@ -6,8 +6,8 @@
                     <icon :type="icon" />
                 </div>
                 <div class="ml-2">
-                    <h4 class="m-0">{{ title }}</h4>
-                    <h6 class="m-0">{{ subtitle }}</h6>
+                    <h3 class="m-0">{{ title }}</h3>
+                    <h5 class="m-0">{{ subtitle }}</h5>
                 </div>
             </div>
             <div class="pl-4">

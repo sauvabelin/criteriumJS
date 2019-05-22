@@ -1,5 +1,9 @@
 <template>
     <div>
+        <div class="p-3">
+            <h1>Participants</h1>
+            <h3>La liste de tous les participants à la course</h3>
+        </div>
         <a-table :dataSource="data" :columns="columns" rowKey="dossard">
             <span slot="moment" slot-scope="date">({{ date }})</span>
             <div slot="unite" slot-scope="item">{{ item.unite().nom }}</div>
@@ -25,6 +29,7 @@ export default {
         return {
             data: [],
             columns: [
+                { title: 'ID', dataIndex: 'id' },
                 { title: 'Dossard', dataIndex: 'dossard' },
                 { title: 'Nom', dataIndex: 'nom' },
                 { title: 'Prénom', dataIndex: 'prenom' },

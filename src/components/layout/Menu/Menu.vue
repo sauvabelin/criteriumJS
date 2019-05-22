@@ -9,7 +9,7 @@
                     </div>
                 </div>
                 <menu-item title="Inscriptions" icon="team" :to="{name: 'Inscriptions'}" />
-                <menu-item title="Postes" icon="compass" :to="{name: 'Inscriptions'}" />
+                <menu-item title="Postes" icon="compass" :to="{name: 'Postes'}" />
                 <menu-item title="Courses" icon="flag" :to="{name: 'Inscriptions'}" />
             </div>
             <!-- bottom items -->

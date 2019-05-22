@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link tag="h5" class="item-link pl-1 mb-1 d-flex align-items-center" :to="to">
+        <router-link tag="h4" class="item-link pl-1 mb-1 d-flex align-items-center" :to="to">
             <icon class="icon mr-1" type="caret-right" />
             {{ title }}
         </router-link>
