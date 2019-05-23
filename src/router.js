@@ -46,5 +46,34 @@ export default new Router({
                 },
             ],
         },
+        {
+            path: '/courses',
+            name: 'Courses',
+            component: () => import(/* webpackChunkName: "courses" */ './views/Courses.vue'),
+            children: [
+                {
+                    path: 'nouveau',
+                    name: 'Nouvelle course',
+                    component: () => import(/* webpackChunkName: "nouvelle-course" */ './views/Courses/Nouvelle.vue'),
+                },
+                {
+                    path: 'gestion/:id',
+                    name: 'Gestion de course',
+                    component: () => import(/* webpackChunkName: "gestion-course" */ './views/Courses/Gestion.vue'),
+                },
+                {
+                    path: 'depart',
+                    name: 'Départ de course',
+                    component: () => import(/* webpackChunkName: "depart-course" */ './views/Courses/Depart.vue'),
+                },
+                {
+                    path: 'arrivee',
+                    name: 'Arrivée de course',
+                    // eslint-disable-next-line
+                    component: () => import(/* webpackChunkName: "arrivee-course" */ './views/Courses/Arrivee.vue'),
+                },
+            ],
+        },
+
     ],
 });

@@ -16,7 +16,6 @@
 import SubMenu from '../components/layout/SubMenu/SubMenu.vue';
 import SubMenuItem from '../components/layout/SubMenu/SubMenuItem.vue';
 import Poste from '../models/Poste';
-import db from '../db';
 
 export default {
     components: {
@@ -24,12 +23,7 @@ export default {
         SubMenuItem,
     },
     async mounted() {
-        console.log(db.alasql);
         await Poste.findAll();
-    },
-    data() {
-        return {
-        };
     },
 };
 </script>

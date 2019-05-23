@@ -4,7 +4,7 @@
             <sub-menu-item :to="{name: 'Inscriptions'}" title="Liste des inscrits" />
             <sub-menu-item :to="{name: 'Importation'}" title="Importer" />
         </sub-menu>
-        <div class="flex-grow-1">
+        <div class="list-content">
             <router-view />
         </div>
     </div>
@@ -21,3 +21,11 @@ export default {
     },
 };
 </script>
+
+<style scoped lang="scss">
+    @import "../assets/scss/variables";
+
+    .list-content {
+        width: calc(100% - #{$sub-menu-width});
+    }
+</style>

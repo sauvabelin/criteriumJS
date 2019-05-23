@@ -57,8 +57,8 @@ class DB {
             await this.run(`create table ${INSCRIPTIONS} (id STRING, dossard INT, nom STRING, prenom STRING, naissance INT, unitId INT)`);
             await this.run(`create table ${COURSES} (id STRING, nom STRING)`);
             await this.run(`create table ${POSTES} (id STRING, nom STRING, max INT, coefficient INT)`);
-            await this.run(`create table ${COURSES_INSCRIPTIONS} (id STRING, dossard INT, debut DATE, arrivee DATE)`);
-            await this.run(`create table ${POSTES_INSCRIPTIONS} (id STRING, dossard INT, points INT)`);
+            await this.run(`create table ${COURSES_INSCRIPTIONS} (id STRING, participantId STRING, debut DATE NULL, arrivee DATE NULL, courseId STRING)`);
+            await this.run(`create table ${POSTES_INSCRIPTIONS} (id STRING, participantId STRING, points INT NULL, posteId STRING)`);
             console.log('Installed db');
             localStorage.setItem(LS_KEY, JSON.stringify([name].concat(this.getDatabaseNames())));
         }

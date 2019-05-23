@@ -34,6 +34,7 @@ export default {
     .sub-menu {
         background: $sub-menu-bg;
         min-height:100vh;
+        height: 100%;
         width: $sub-menu-width;
         border-right: 1px solid $gray-300;
 

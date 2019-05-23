@@ -43,11 +43,13 @@ export default {
         async addPoste(e) {
             e.preventDefault();
             await this.form.validateFields(async (err, { nom, coefficient, max }) => {
-                const poste = new Poste();
-                poste.nom = nom;
-                poste.coefficient = coefficient;
-                poste.max = max;
-                await poste.insert();
+                if (!err) {
+                    const poste = new Poste();
+                    poste.nom = nom;
+                    poste.coefficient = coefficient;
+                    poste.max = max;
+                    await poste.insert();
+                }
             });
         },
     },

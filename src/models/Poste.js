@@ -17,6 +17,10 @@ class Poste extends Base {
         await Poste.findAll();
     }
 
+    getMax() {
+        return parseInt(this.max, 10);
+    }
+
 
     static findAll() {
         return super.findAll().then((postes) => {

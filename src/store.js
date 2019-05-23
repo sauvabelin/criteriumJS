@@ -24,5 +24,14 @@ export default new Vuex.Store({
         updatePoste: (state, poste) => {
             state.postes[state.postes.findIndex(p => p.id === poste.id)] = poste;
         },
+        addCourse: (state, course) => {
+            state.courses.push(course);
+        },
+        cleanCourses: (state) => {
+            state.courses.splice(0);
+        },
+        updateCourse: (state, course) => {
+            state.courses[state.courses.findIndex(c => c.id === course.id)] = course;
+        },
     },
 });

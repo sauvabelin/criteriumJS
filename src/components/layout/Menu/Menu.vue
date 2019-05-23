@@ -10,7 +10,7 @@
                 </div>
                 <menu-item title="Inscriptions" icon="team" :to="{name: 'Inscriptions'}" />
                 <menu-item title="Postes" icon="compass" :to="{name: 'Postes'}" />
-                <menu-item title="Courses" icon="flag" :to="{name: 'Inscriptions'}" />
+                <menu-item title="Courses" icon="flag" :to="{name: 'Courses'}" />
             </div>
             <!-- bottom items -->
             <div class="d-flex flex-column"></div>
