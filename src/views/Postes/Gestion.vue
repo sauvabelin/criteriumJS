@@ -1,8 +1,18 @@
 <template>
     <div>
         <div class="p-3" v-if="poste">
-            <h1>{{ poste.nom }}</h1>
-            <h2>Gestion de poste</h2>
+            <set-property property="coefficient" :show="modalCoeff" :item="poste" @close="modalCoeff = false" />
+            <set-property property="max" :show="modalMax" :item="poste" @close="modalMax = false" />
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1>{{ poste.nom }}</h1>
+                    <h2>Gestion de poste</h2>
+                </div>
+                <div>
+                    <a-button type="dashed" @click="modalCoeff = true" class="mr-2">Changer le coefficient</a-button>
+                    <a-button type="dashed" @click="modalMax = true">Changer le max de points</a-button>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12 col-md-4">
                     <h3>Ecrire les points d'un participant</h3>
@@ -36,6 +46,7 @@
 import { Input, Button, Form } from 'ant-design-vue';
 import Participant from '../../models/Participant';
 import ParticipantsListe from '../../components/Participant/ParticipantsListe.vue';
+import SetProperty from '../../components/SetProperty.vue';
 
 export default {
     components: {
@@ -44,6 +55,7 @@ export default {
         aForm: Form,
         aFormItem: Form.Item,
         ParticipantsListe,
+        SetProperty,
     },
     mounted() {
         this.refresh();
@@ -94,6 +106,8 @@ export default {
             form: this.$form.createForm(this),
             notParticipated: [],
             resultats: [],
+            modalCoeff: false,
+            modalMax: false,
         };
     },
 };

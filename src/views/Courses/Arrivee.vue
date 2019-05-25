@@ -68,7 +68,7 @@ export default {
                     const timeStr = (temps === undefined || temps === null || temps === '') ? `${now.getHours()} ${now.getMinutes()} ${now.getSeconds()}` : temps;
                     const time = timeStr.split(' ').map(t => parseInt(t, 10));
                     if (time.length === 2) time.push(0);
-                    const arrivee = new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), time[0], time[1], time[2]);
+                    const arrivee = new Date(now.getFullYear(), now.getMonth(), now.getDate(), time[0], time[1], time[2]);
 
                     const participant = await Participant.findOneBy({ dossard: parseInt(dossard, 10) });
                     if (participant === null) {

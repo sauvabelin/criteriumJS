@@ -62,9 +62,9 @@ export default {
             e.preventDefault();
             await this.form.validateFields(async (err, { unite, course, temps }) => {
                 if (!err) {
-                    const time = temps.split(' ');
+                    const time = temps.split(' ').map(t => parseInt(t, 10));
                     const now = new Date();
-                    if (time.length === 2) time.push('00');
+                    if (time.length === 2) time.push(0);
                     const depart = new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), time[0], time[1], time[2]);
                     const participants = await Participant.findBy({ unitId: unite });
                     // eslint-disable-next-line
