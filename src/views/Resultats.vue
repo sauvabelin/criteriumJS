@@ -10,12 +10,14 @@
             <div v-for="poste in $store.state.postes" :key="poste.id">
                 <a-checkbox :default-checked="true" @change="togglePoste($event, poste.id)">{{ poste.nom }}</a-checkbox>
             </div>
+            <sub-menu-category title="Autres paramètres" class="mt-3" />
+            <a-checkbox :default-checked="true" @change="midcols = !midcols">Colonnes intermédiaires</a-checkbox>
         </sub-menu>
-        <div class="flex-grow-1">
+        <div class="fwidth">
             <div class="p-3">
                 <h1>Résultats</h1>
             </div>
-            <resultats :postes="postes" :courses="courses" />
+            <resultats :postes="postes" :courses="courses" :midcols="midcols" />
         </div>
     </div>
 </template>
@@ -62,7 +64,16 @@ export default {
         return {
             courses: [],
             postes: [],
+            midcols: true,
         };
     },
 };
 </script>
+
+<style scoped lang="scss">
+    @import "../assets/scss/variables";
+
+    .fwidth {
+        width: calc(100vw - #{$sub-menu-width});
+    }
+</style>

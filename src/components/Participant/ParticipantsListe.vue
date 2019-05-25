@@ -33,7 +33,7 @@
             </div>
         </div>
         <div :class="{bordered: border}">
-            <a-table :dataSource="participants" :columns="cls" rowKey="dossard">
+            <a-table :dataSource="participants" :columns="cls" rowKey="dossard" :scroll="scroll">
                 <span slot="moment" slot-scope="date">({{ date }})</span>
                 <div slot="unite" slot-scope="item">{{ item.unite().nom }}</div>
                 <div slot="sousunite" slot-scope="item">{{ item.sousUnite().nom }}</div>
@@ -118,6 +118,9 @@ export default {
         columns: {
             type: Array,
             default: () => [],
+        },
+        scroll: {
+            default: () => ({}),
         },
     },
     data() {

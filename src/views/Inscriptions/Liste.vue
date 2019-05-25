@@ -4,7 +4,7 @@
             <h1>Participants</h1>
             <h3>La liste de tous les participants à la course</h3>
         </div>
-        <participants-liste :data="data" />
+        <participants-liste :data="data" :details="true" />
     </div>
 </template>
 

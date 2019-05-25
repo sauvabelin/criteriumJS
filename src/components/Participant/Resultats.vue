@@ -1,6 +1,6 @@
 <template>
     <div>
-        <participants-liste :data="resultats" :details="false" :columns="columns" />
+        <participants-liste :data="resultats" :columns="columns" />
     </div>
 </template>
 
@@ -31,7 +31,7 @@ export default {
             participants: [],
         };
     },
-    props: ['courses', 'postes'],
+    props: ['courses', 'postes', 'midcols'],
     methods: {
         diff(course) {
             return getSeconds(course.arrivee) - getSeconds(course.debut);
@@ -40,20 +40,25 @@ export default {
     computed: {
         columns() {
             // all courses and postes
-            const { courses, postes } = this.$store.state;
-            const courseColumns = this.courses.map(id => ({ title: `Course ${courses.find(c => c.id === id).nom} (coeff: ${courses.find(c => c.id === id).coefficient})`,
-                customRender: (participant) => {
-                    const course = participant.courses.find(c => c.courseId === id);
-                    return course ? timeDiff([course.arrivee, course.debut]) : '-';
-                },
-            }));
-            const posteColumns = this.postes.map(id => ({ title: `Poste ${postes.find(p => p.id === id).nom} (coeff: ${postes.find(p => p.id === id).coefficient})`,
-                customRender: (participant) => {
-                    const poste = participant.postes.find(p => p.posteId === id);
-                    return poste ? poste.points : '-';
-                },
-            }));
-            const columns = courseColumns.concat(posteColumns);
+            let columns = [];
+            if (this.midcols) {
+                const { courses, postes } = this.$store.state;
+                const courseColumns = this.courses.map(id => ({
+                    title: `Course ${courses.find(c => c.id === id).nom} (coeff: ${courses.find(c => c.id === id).coefficient})`,
+                    customRender: (participant) => {
+                        const course = participant.courses.find(c => c.courseId === id);
+                        return course ? timeDiff([course.arrivee, course.debut]) : '-';
+                    },
+                }));
+                const posteColumns = this.postes.map(id => ({
+                    title: `Poste ${postes.find(p => p.id === id).nom} (coeff: ${postes.find(p => p.id === id).coefficient})`,
+                    customRender: (participant) => {
+                        const poste = participant.postes.find(p => p.posteId === id);
+                        return poste ? poste.points : '-';
+                    },
+                }));
+                columns = columns.concat(courseColumns).concat(posteColumns);
+            }
             if (this.postes.length > 0) columns.push({ title: 'Points pondérés', customRender: participant => participant.points });
             if (this.courses.length > 0) columns.push({ title: 'Temps pondéré', customRender: participant => printSeconds(participant.temps) });
             if (this.courses.length > 0 || this.postes.length > 0) columns.push({ title: 'Score final', customRender: participant => participant.total });
