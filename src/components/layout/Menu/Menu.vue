@@ -11,9 +11,12 @@
                 <menu-item title="Inscriptions" icon="team" :to="{name: 'Inscriptions'}" />
                 <menu-item title="Postes" icon="compass" :to="{name: 'Postes'}" />
                 <menu-item title="Courses" icon="flag" :to="{name: 'Courses'}" />
+                <menu-item title="Résultats" icon="trophy" :to="{name: 'Résultats'}" />
             </div>
             <!-- bottom items -->
-            <div class="d-flex flex-column"></div>
+            <div class="d-flex flex-column">
+                <menu-item title="Paramètres" icon="setting" :to="{name: 'Paramètres'}" />
+            </div>
         </div>
     </div>
 </template>

@@ -1,8 +1,8 @@
 <template>
     <div class="d-flex">
-        <sub-menu title="Courses" subtitle="Les courses enregistrées" icon="flag" color="#009900">
+        <sub-menu title="Courses" subtitle="Gestion des courses" icon="flag" color="#009900">
             <sub-menu-item v-for="course in $store.state.courses" :to="{name: 'Gestion de course', params: {id: course.id}}"
-                           :title="course.nom" :key="course.id" />
+                           :title="course.nom + ' (coeff: ' + course.coefficient + ')'" :key="course.id" />
             <br />
             <sub-menu-item :to="{name: 'Nouvelle course'}" title="Nouvelle course" />
             <sub-menu-item :to="{name: 'Départ de course'}" title="Départ de course" />

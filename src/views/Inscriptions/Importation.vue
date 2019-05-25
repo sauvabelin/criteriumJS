@@ -19,7 +19,6 @@
 import { HotTable } from '@handsontable/vue';
 import { Button } from 'ant-design-vue';
 import 'handsontable/dist/handsontable.full.min.css';
-// import db from '../../db';
 import Participant from '../../models/Participant';
 
 export default {

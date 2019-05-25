@@ -9,6 +9,9 @@
                         <a-form-item label="Nom">
                             <a-input v-decorator="['nom', {rules: [{ required: true}]}]" />
                         </a-form-item>
+                        <a-form-item label="Coefficient">
+                            <a-input v-decorator="['coefficient', {rules: [{ required: true}]}]" />
+                        </a-form-item>
                         <a-button type="primary" html-type="submit">Ajouter la course</a-button>
                     </a-form>
                 </div>
@@ -36,10 +39,11 @@ export default {
     methods: {
         async addCourse(e) {
             e.preventDefault();
-            await this.form.validateFields(async (err, { nom }) => {
+            await this.form.validateFields(async (err, { nom, coefficient }) => {
                 if (!err) {
                     const course = new Course();
                     course.nom = nom;
+                    course.coefficient = parseInt(coefficient, 10);
                     await course.insert();
                 }
             });

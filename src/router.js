@@ -1,17 +1,17 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
+import Settings from './views/Settings.vue';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [
         {
             path: '/',
-            name: 'home',
-            component: Home,
+            name: 'Paramètres',
+            component: Settings,
         },
         {
             path: '/inscriptions',
@@ -30,6 +30,11 @@ export default new Router({
             ],
         },
         {
+            path: '/resultats',
+            name: 'Résultats',
+            component: () => import(/* webpackChunkName: "resultats" */ './views/Resultats.vue'),
+        },
+        {
             path: '/postes',
             name: 'Postes',
             component: () => import(/* webpackChunkName: "postes" */ './views/Postes.vue'),
@@ -43,6 +48,11 @@ export default new Router({
                     path: 'gestion/:id',
                     name: 'Gestion',
                     component: () => import(/* webpackChunkName: "gestion-poste" */ './views/Postes/Gestion.vue'),
+                },
+                {
+                    path: 'importer-scores',
+                    name: 'Importer des scores',
+                    component: () => import(/* webpackChunkName: "importer-scores" */ './views/Postes/ImporterScores.vue'),
                 },
             ],
         },
@@ -77,3 +87,9 @@ export default new Router({
 
     ],
 });
+
+router.afterEach((to) => {
+    document.title = `Criterium | ${to.name}`;
+});
+
+export default router;

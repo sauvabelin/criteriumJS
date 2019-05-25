@@ -50,6 +50,7 @@ class Participant extends Base {
         if (link === null) {
             const nlink = new PosteParticipant();
             nlink.points = points;
+            nlink.posteId = posteId;
             nlink.participantId = this.id;
             await nlink.insert();
         } else {

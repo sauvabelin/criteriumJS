@@ -29,7 +29,7 @@
                     </a-form>
                 </div>
                 <div class="col-12 col-sm-8">
-                    <div v-for="error in errors" :key="error.time" class="mb-2">
+                    <div v-for="error in errors" :key="error.time.getTime()" class="mb-2">
                         <a-alert :type="error.type" :description="error.message" :message="'dossard: ' + error.dossard + ', temps enregistré: ' + error.time.toLocaleString()" />
                     </div>
                 </div>
@@ -65,7 +65,7 @@ export default {
             await this.form.validateFields(async (err, { course, dossard, temps }) => {
                 if (!err) {
                     const now = new Date();
-                    const timeStr = (temps === undefined) ? `${now.getHours()} ${now.getMinutes()} ${now.getSeconds()}` : temps;
+                    const timeStr = (temps === undefined || temps === null || temps === '') ? `${now.getHours()} ${now.getMinutes()} ${now.getSeconds()}` : temps;
                     const time = timeStr.split(' ').map(t => parseInt(t, 10));
                     if (time.length === 2) time.push(0);
                     const arrivee = new Date(now.getFullYear(), now.getMonth(), now.getUTCDate(), time[0], time[1], time[2]);
@@ -82,6 +82,7 @@ export default {
                         noErrors = false;
                     }
 
+                    console.log(arrivee);
                     await participant.setCourseData(course, arrivee, 'arrivee');
                     if (noErrors) this.$toasted.success(`Participant [${dossard}] bien arrivé!`);
                     this.form.setFieldsValue({ temps: null, dossard: null });

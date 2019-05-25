@@ -1,6 +1,7 @@
 import Base from './Base';
 import Store from '../store';
-import { POSTES } from '../db';
+import db, { POSTES_INSCRIPTIONS, INSCRIPTIONS, POSTES } from '../db';
+import Participant from './Participant';
 
 const PROPERTIES = ['nom', 'max', 'coefficient'];
 
@@ -29,6 +30,22 @@ class Poste extends Base {
                 Store.commit('addPoste', poste);
             });
             return postes;
+        });
+    }
+
+    async participantsPasEntres() {
+        const inDB = await db.run(`SELECT * FROM ${INSCRIPTIONS} p JOIN ${POSTES_INSCRIPTIONS} c ON c.participantId = p.id WHERE c.posteId = ?`, [this.id]);
+        const postesEntreesIds = inDB.filter(d => d.points !== null).map(d => d.participantId);
+        const participants = await Participant.findAll();
+        return participants.filter(p => !postesEntreesIds.includes(p.id));
+    }
+
+    async getResultats() {
+        const inDB = await db.run(`SELECT * FROM ${INSCRIPTIONS} p JOIN ${POSTES_INSCRIPTIONS} c ON c.participantId = p.id WHERE c.posteId = ?`, [this.id]);
+        return inDB.sort((a, b) => parseInt(a.points, 10) < parseInt(b.points, 10)).map((item) => {
+            const p = Participant.convert(item);
+            p.points = item.points;
+            return p;
         });
     }
 }
