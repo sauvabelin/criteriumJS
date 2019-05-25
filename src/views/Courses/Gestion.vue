@@ -7,7 +7,7 @@
             </div>
             <a-button type="dashed" @click="modalCoeff = true">Changer le coefficient</a-button>
         </div>
-        <participants-liste :data="resultats" :details="false" :columns="[{title: 'Temps', dataIndex: 'temps'}]" />
+        <participants-liste :data="resultats" :columns="[{title: 'Temps', dataIndex: 'temps'}]" />
         <div class="p-3">
             <h2>Participants n'ayant pas encore de temps de départ et/ou d'arrivée</h2>
         </div>
@@ -41,7 +41,6 @@ export default {
                 this.course.participantsPasFini().then((data) => {
                     this.notFinishedParticipants = data;
                     this.course.getResultats().then((results) => {
-                        console.log(results);
                         this.resultats = results;
                     });
                 });

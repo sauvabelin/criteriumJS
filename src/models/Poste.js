@@ -44,6 +44,7 @@ class Poste extends Base {
         const inDB = await db.run(`SELECT * FROM ${INSCRIPTIONS} p JOIN ${POSTES_INSCRIPTIONS} c ON c.participantId = p.id WHERE c.posteId = ?`, [this.id]);
         return inDB.sort((a, b) => parseInt(a.points, 10) < parseInt(b.points, 10)).map((item) => {
             const p = Participant.convert(item);
+            p.id = item.participantId;
             p.points = item.points;
             return p;
         });

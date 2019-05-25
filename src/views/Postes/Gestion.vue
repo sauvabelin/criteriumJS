@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-12 col-md-8">
                     <h3>Résultats à ce poste</h3>
-                    <participants-liste :details="false" :data="resultats" :border="true" :columns="[{title: 'Points', dataIndex: 'points'}]" />
+                    <participants-liste :data="resultats" :border="true" :columns="[{title: 'Points', dataIndex: 'points'}]" />
                 </div>
             </div>
         </div>

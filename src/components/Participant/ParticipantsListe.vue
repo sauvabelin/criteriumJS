@@ -80,7 +80,6 @@ export default {
         },
         sexe() {
             const sexe = this.unites.map(u => this.getUnite(u).sexe);
-            console.log(sexe);
             return sexe.filter((v, i) => sexe.indexOf(v) === i).sort((a, b) => parseInt(a, 10) < parseInt(b, 10));
         },
         participants() {

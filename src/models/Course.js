@@ -40,6 +40,7 @@ class Course extends Base {
         const inDB = await db.run(`SELECT * FROM ${INSCRIPTIONS} p JOIN ${COURSES_INSCRIPTIONS} c ON c.participantId = p.id WHERE c.courseId = ?`, [this.id]);
         return inDB.filter(p => p.debut !== null && p.arrivee !== null).sort((a, b) => (getSeconds(a.arrivee) - getSeconds(a.debut)) > (getSeconds(b.arrivee) - getSeconds(b.debut))).map((item) => {
             const p = Participant.convert(item);
+            p.id = item.participantId;
             p.temps = timeDiff([item.arrivee, item.debut]);
             return p;
         });

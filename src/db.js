@@ -33,7 +33,7 @@ class DB {
 
     run(query, params) {
         return new Promise((resolve, reject) => {
-            console.log(`running (${query})`);
+            console.log(`running (${query}) with params (${JSON.stringify(params)})`);
             alasql.promise(query, params).then((data) => {
                 resolve(data);
             }).catch((err) => {
