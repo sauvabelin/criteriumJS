@@ -1,19 +1,26 @@
 export const Unites = [
-    { uid: 1, nom: 'Zanfleuron', sexe: 'homme' },
-    { uid: 2, nom: 'Manloud', sexe: 'homme' },
-    { uid: 5, nom: 'LaNeuvaz', sexe: 'homme' },
-    { uid: 6, nom: 'Chandelard', sexe: 'homme' },
-    { uid: 7, nom: 'Berisal', sexe: 'homme' },
-    { uid: 8, nom: 'Montfort', sexe: 'homme' },
-    { uid: 9, nom: 'Lovegno', sexe: 'homme' },
-    { uid: 10, nom: 'Solalex', sexe: 'femme' },
-    { uid: 11, nom: 'Grammont', sexe: 'femme' },
-    { uid: 12, nom: 'Armina', sexe: 'femme' },
-    { uid: 13, nom: 'Santis', sexe: 'femme' },
-    { uid: 20, nom: 'Montd\'Or', sexe: 'homme' },
-    { uid: 21, nom: 'Clairière', sexe: 'homme' },
-    { uid: 22, nom: 'Cabéru', sexe: 'femme' },
-    { uid: 23, nom: 'Chenaulaz', sexe: 'femme' },
+    { bid: 1, uid: 1, nom: 'Zanfleuron', sexe: 'homme' },
+    { bid: 1, uid: 2, nom: 'Manloud', sexe: 'homme' },
+    { bid: 1, uid: 5, nom: 'LaNeuvaz', sexe: 'homme' },
+    { bid: 1, uid: 6, nom: 'Chandelard', sexe: 'homme' },
+    { bid: 1, uid: 7, nom: 'Berisal', sexe: 'homme' },
+    { bid: 1, uid: 8, nom: 'Montfort', sexe: 'homme' },
+    { bid: 1, uid: 9, nom: 'Lovegno', sexe: 'homme' },
+    { bid: 2, uid: 10, nom: 'Solalex', sexe: 'femme' },
+    { bid: 2, uid: 11, nom: 'Grammont', sexe: 'femme' },
+    { bid: 2, uid: 12, nom: 'Armina', sexe: 'femme' },
+    { bid: 2, uid: 13, nom: 'Santis', sexe: 'femme' },
+    { bid: 3, uid: 20, nom: 'Montd\'Or', sexe: 'homme' },
+    { bid: 3, uid: 21, nom: 'Clairière', sexe: 'homme' },
+    { bid: 4, uid: 22, nom: 'Cabéru', sexe: 'femme' },
+    { bid: 4, uid: 23, nom: 'Chenaulaz', sexe: 'femme' },
+];
+
+export const branches = [
+    { bid: 1, nom: 'éclaireurs' },
+    { bid: 2, nom: 'éclaireuses' },
+    { bid: 3, nom: 'louveteaux' },
+    { bid: 4, nom: 'louvettes' },
 ];
 
 export const SousUnites = [
@@ -29,7 +36,7 @@ export const SousUnites = [
     { sid: 10, uid: 5, nom: 'Antilopes' },
     { sid: 11, uid: 5, nom: 'Cigognes' },
     { sid: 12, uid: 5, nom: 'Hérons' },
-    { sid: 13, uid: 5, nom: 'Renards' },
+    { sid: 13, uid: 5, nom: 'Renards (Neuvaz)' },
     { sid: 14, uid: 5, nom: 'Loutres' },
     { sid: 15, uid: 5, nom: 'Chauves-souris' },
     { sid: 16, uid: 6, nom: 'Rennes' },
@@ -57,7 +64,7 @@ export const SousUnites = [
     { sid: 38, uid: 11, nom: 'Licornes' },
     { sid: 39, uid: 11, nom: 'Fennecs' },
     { sid: 40, uid: 11, nom: 'Okapis' },
-    { sid: 41, uid: 11, nom: 'Kangourous' },
+    { sid: 41, uid: 11, nom: 'Kangourous (grammont)' },
     { sid: 42, uid: 11, nom: 'Chevreuils' },
     { sid: 43, uid: 12, nom: 'Impalas' },
     { sid: 44, uid: 12, nom: 'Mangoustes' },
@@ -68,8 +75,8 @@ export const SousUnites = [
     { sid: 49, uid: 13, nom: 'Irbis' },
     { sid: 101, uid: 20, nom: 'Panthères(lvtx)' },
     { sid: 102, uid: 20, nom: 'Koalas(lvtx)' },
-    { sid: 103, uid: 20, nom: 'Renards' },
-    { sid: 104, uid: 20, nom: 'Kangourous' },
+    { sid: 103, uid: 20, nom: 'Renards (lvtx)' },
+    { sid: 104, uid: 20, nom: 'Kangourous (lvtx)' },
     { sid: 105, uid: 21, nom: 'Ours(lvtx)' },
     { sid: 106, uid: 21, nom: 'Dauphins' },
     { sid: 107, uid: 21, nom: 'Chevaux' },
@@ -85,3 +92,4 @@ export const SousUnites = [
 
 export const getUnite = uid => Unites.find(u => u.uid === uid);
 export const getSousUnite = sid => SousUnites.find(s => s.sid === sid);
+export const getBranche = bid => branches.find(s => s.bid === bid);

@@ -11,7 +11,7 @@
                     </p>
                     <a-form @submit="submit" :form="form" layout="vertical">
                         <a-form-item label="Course">
-                            <a-select style="width: 100%" placeholder="Course" v-decorator="['course', {rules: [{required: true}]}]">
+                            <a-select style="width: 100%" placeholder="Course" @change="setCourse" v-decorator="['course', {rules: [{required: true}]}]">
                                 <a-select-option v-for="course in $store.state.courses" :key="course.id" :value="course.id">
                                     {{ course.nom }}
                                 </a-select-option>
@@ -42,6 +42,9 @@
 import { Input, Select, Button, Form, Alert } from 'ant-design-vue';
 import Participant from '../../models/Participant';
 import CourseParticipant from '../../models/CourseParticipant';
+import db from '../../db';
+
+const KEY = `${db.dbname}_arrivee_crit`;
 
 export default {
     components: {
@@ -59,7 +62,13 @@ export default {
             form: this.$form.createForm(this),
         };
     },
+    mounted() {
+        this.form.setFieldsValue({ course: localStorage.getItem(KEY) });
+    },
     methods: {
+        setCourse(id) {
+            localStorage.setItem(KEY, id);
+        },
         async submit(e) {
             e.preventDefault();
             await this.form.validateFields(async (err, { course, dossard, temps }) => {
@@ -81,10 +90,8 @@ export default {
                         this.addError(dossard, 'warning', arrivee, `Ce numéro était déjà arrivé à ${courseData.arrivee.toLocaleString()}, temps écrasé.`);
                         noErrors = false;
                     }
-
-                    console.log(arrivee);
                     await participant.setCourseData(course, arrivee, 'arrivee');
-                    if (noErrors) this.$toasted.success(`Participant [${dossard}] bien arrivé!`);
+                    if (noErrors) this.$toasted.success(`Participant [${dossard}] ${participant.prenom} ${participant.nom} bien arrivé!`);
                     this.form.setFieldsValue({ temps: null, dossard: null });
                 }
             });
