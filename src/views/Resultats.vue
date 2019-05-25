@@ -1,8 +1,16 @@
 <template>
     <div class="d-flex">
         <sub-menu title="Résultats" subtitle="Calculateur des résultats" icon="trophy" color="#eadb0e">
-            <p>Vous pouvez sélectionner les postes et courses qui doivent entrer en jeu dans le calcul du résultat</p>
-            <sub-menu-category title="Courses" />
+            <p class="pr-1">Vous pouvez sélectionner les postes et courses qui doivent entrer en jeu dans le calcul du résultat</p>
+            <sub-menu-category title="Résultats" />
+            <a-radio-group v-model="resulttype">
+                <a-radio :value="1">Participants</a-radio>
+                <br/>
+                <a-radio :value="2">Sous-Unités</a-radio>
+                <br/>
+                <a-radio :value="3">Unités</a-radio>
+            </a-radio-group>
+            <sub-menu-category title="Courses" class="mt-3" />
             <div v-for="course in $store.state.courses" :key="course.id">
                 <a-checkbox :default-checked="true" @change="toggleCourse($event, course.id)">{{ course.nom }}</a-checkbox>
             </div>
@@ -17,16 +25,18 @@
             <div class="p-3">
                 <h1>Résultats</h1>
             </div>
-            <resultats :postes="postes" :courses="courses" :midcols="midcols" />
+            <component :is="getComposant" :postes="postes" :courses="courses" :midcols="midcols" />
         </div>
     </div>
 </template>
 
 <script>
-import { Checkbox } from 'ant-design-vue';
+import { Checkbox, Radio } from 'ant-design-vue';
 import SubMenu from '../components/layout/SubMenu/SubMenu.vue';
 import SubMenuCategory from '../components/layout/SubMenu/SubMenuCategory.vue';
 import Resultats from '../components/Participant/Resultats.vue';
+import ResultatsSousUnites from '../components/ResultatsSousUnites.vue';
+import ResultatsUnites from '../components/ResultatsUnites.vue';
 
 import Poste from '../models/Poste';
 import Course from '../models/Course';
@@ -34,9 +44,12 @@ import Course from '../models/Course';
 export default {
     components: {
         SubMenu,
+        aRadioGroup: Radio.Group,
+        aRadio: Radio,
         SubMenuCategory,
         aCheckbox: Checkbox,
         Resultats,
+        ResultatsUnites,
     },
     async mounted() {
         await Poste.findAll();
@@ -65,7 +78,15 @@ export default {
             courses: [],
             postes: [],
             midcols: true,
+            resulttype: 1,
         };
+    },
+    computed: {
+        getComposant() {
+            if (this.resulttype === 1) return Resultats;
+            if (this.resulttype === 2) return ResultatsSousUnites;
+            return ResultatsUnites;
+        },
     },
 };
 </script>
