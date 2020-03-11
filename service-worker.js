@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.361a84c656ff8aa26d284ca3815ecf10.js"
+  "/criteriumJS/precache-manifest.5aafd3ca1da16930f3fc8bd8d5f5f2f3.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "quickcrit"});
