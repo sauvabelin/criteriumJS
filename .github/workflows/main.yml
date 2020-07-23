@@ -1,0 +1,17 @@
+on: push
+name: Publish website
+jobs:
+  build-and-deploy:
+    name: ftp-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+      - run: npm install
+      - run: npm run build
+      - name: ftp-deploy
+        uses: SamKirkland/FTP-Deploy-Action@3.1.1
+        with:
+          - ftp-server: ${{ secrets.FTP_SERVER }}
+          - ftp-username: ${{ secrets.FTP_USERNAME }}
+          - ftp-password: ${{ secrets.FTP_PASSWORD }}
