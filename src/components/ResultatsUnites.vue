@@ -47,7 +47,12 @@ export default {
             columns: [
                 { title: 'Unité', customRender: item => item.unite.nom },
                 { title: 'Participants comptabilisés', dataIndex: 'participants' },
-                { title: 'Score final', dataIndex: 'total' },
+                {
+                    title: 'Score final',
+                    dataIndex: 'total',
+                    sorter: (a, b) => a.total - b.total,
+                    sortDirections: ['descend', 'ascend'],
+                },
             ],
         };
     },

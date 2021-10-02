@@ -10,7 +10,6 @@
                     Nombre min de participants
                     <a-input v-model="minParticipants" placeholder="Nombre min de participants" />
                 </div>
-
             </div>
             <div class="row mb-3">
                 <div class="col-12 col-md-3">
@@ -62,7 +61,12 @@ export default {
                 { title: 'Sous unité', customRender: item => item.sousUnite.nom },
                 { title: 'Unité', customRender: item => item.unite.nom },
                 { title: 'Participants valables', customRender: item => item.participants.length },
-                { title: 'Score final', dataIndex: 'total' },
+                {
+                    title: 'Score final',
+                    dataIndex: 'total',
+                    sorter: (a, b) => a.total - b.total,
+                    sortDirections: ['descend', 'ascend'],
+                },
             ],
         };
     },
@@ -92,7 +96,7 @@ export default {
         resultatsSousUnites() {
             const bonuuus = this.bonusSeconds === '' ? 0 : parseInt(this.bonusSeconds, 10);
             const min = this.minParticipants === '' ? 0 : parseInt(this.minParticipants, 10);
-            return this.sousUnite.map(id => ({
+            const res = this.sousUnite.map(id => ({
                 id,
                 sousUnite: this.getSousUnite(id),
                 participants: this.resultats.filter(p => p.unitId === id),
@@ -107,8 +111,9 @@ export default {
                 ...rest3,
                 total: Math.round((rest3.total - rest3.bonus) / rest3.participants.length),
             }))
-                .filter(item => item.participants.length >= min)
-                .sort((a, b) => a.total > b.total);
+                .filter(item => item.participants.length >= min);
+            console.log(res);
+            return res.sort((a, b) => a.total > b.total);
         },
         resultats() {
             // Filtre selon les courses, seulement les participants qui ont des résultats dans toutes les courses
