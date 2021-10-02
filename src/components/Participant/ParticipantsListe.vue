@@ -32,11 +32,19 @@
                         <a-select-option :value="11">louveteaux-ettes</a-select-option>
                     </a-select>
                 </div>
-                <div class="col-12 col-md-2">
+                <div class="col-12 col-md-1">
                     Filtrer par sexe
                     <a-select v-model="xxx" style="width:100%">
                         <a-select-option :value="-1">Ne pas filtrer</a-select-option>
                         <a-select-option v-for="y in sexe" :key="y" :value="y">{{ y }}</a-select-option>
+                    </a-select>
+                </div>
+                <div class="col-12 col-md-1">
+                    Trier par
+                    <a-select v-model="tri" style="width:100%">
+                        <a-select-option :value="1">Dossard</a-select-option>
+                        <a-select-option :value="2">Temps</a-select-option>
+                        <a-select-option :value="3">Score final</a-select-option>
                     </a-select>
                 </div>
                 <div class="col-12 col-md-2">
@@ -117,7 +125,18 @@ export default {
                     || i.nom.toLowerCase().includes(this.search)
                     || `${i.dossard}`.includes(this.search));
             }
-            return data;
+            return data.sort((a, b) => {
+                switch (this.tri) {
+                case 1:
+                    return a.dossard > b.dossard ? 1 : -1;
+                case 2:
+                    return a.temps > b.temps ? 1 : -1;
+                case 3:
+                    return a.total > b.total ? 1 : -1;
+                default:
+                    return data;
+                }
+            });
         },
         cls() {
             return [
@@ -159,6 +178,7 @@ export default {
             xxx: -1,
             branche: -1,
             search: '',
+            tri: 3,
         };
     },
 };
