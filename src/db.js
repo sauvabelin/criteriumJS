@@ -71,6 +71,83 @@ class DB {
         this.dbname = name;
     }
 
+    async importItemsInTable(table, items, dateFields = []) {
+        for await (const item of items) {
+            let insertedItem = {...item};
+            for (const field of dateFields) {
+                if (insertedItem[field]) {
+                    insertedItem[field] = new Date(insertedItem[field]);
+                }
+            }
+            console.log(insertedItem);
+            await db.run(`insert into ${table} values ?`, [insertedItem]);
+        }
+    }
+
+    /**
+     * @param {File} file 
+     */
+    async importFile(file) {
+        const event = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.addEventListener('load', resolve);
+            reader.readAsText(file);
+        });
+
+        try {
+            const {
+                inscriptions,
+                courses,
+                postes,
+                coursesInscriptions,
+                postesInscriptions,
+            } = JSON.parse(event.target.result);
+            const dbName = file.name.replace('.json', '') + "_" + Date.now();
+            await this.swap(dbName);
+
+            await this.importItemsInTable(INSCRIPTIONS, inscriptions);
+            await this.importItemsInTable(COURSES, courses);
+            await this.importItemsInTable(POSTES, postes);
+            await this.importItemsInTable(POSTES_INSCRIPTIONS, postesInscriptions);
+            await this.importItemsInTable(COURSES_INSCRIPTIONS, coursesInscriptions, ['debut', 'arrivee']);
+        } catch (e) {
+            console.error(e);
+            alert(`Une erreur s'est produite: ${e.message}`);
+        }
+    }
+
+    async exportDB(dbname) {
+        const oldDb = localStorage.getItem(ACTIVE_DB);
+        await this.swap(dbname);
+        const inscriptions = await this.run(`SELECT * FROM ${INSCRIPTIONS}`);
+        const courses = await this.run(`SELECT * FROM ${COURSES}`);
+        const postes = await this.run(`SELECT * FROM ${POSTES}`);
+        const coursesInscriptions = await this.run(`SELECT * FROM ${COURSES_INSCRIPTIONS}`);
+        const postesInscriptions = await this.run(`SELECT * FROM ${POSTES_INSCRIPTIONS}`);
+
+        const data = JSON.stringify({
+            inscriptions,
+            courses,
+            postes,
+            postesInscriptions,
+            coursesInscriptions,
+        });
+
+        const blob = new Blob([data], { type: 'text/json' });
+        if (window.navigator.msSaveOrOpenBlob) {
+            window.navigator.msSaveBlob(blob, `${dbname}.json`);
+        } else {
+            const anchor = document.createElement('a');
+            anchor.href = window.URL.createObjectURL(blob);
+            anchor.target = '_blank';
+            anchor.download = `${dbname}.json`;
+            document.body.append(anchor);
+            anchor.click();
+        }
+
+        await this.swap(oldDb);
+    }
+
     exist(dbname) {
         return this.getDatabaseNames().includes(dbname);
     }
