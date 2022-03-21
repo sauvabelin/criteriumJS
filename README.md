@@ -22,7 +22,4 @@ npm run serve
 
 ## Déploiement
 
-La web app est disponible sur github pages pour plus de simplicité directement à partir de ce repository, comme ça pas besoin de l'héberger ailleurs (d'autant plus qu'elle n'a aucune nécessité d'un serveur). Pour construire l'application et la déployer sur github pages lancer
-```
-npm run deploy
-```
+Rien de particulier à faire, une github action va automatiquement build et upload l'application en ftp sur hostpoint.
