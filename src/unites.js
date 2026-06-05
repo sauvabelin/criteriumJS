@@ -94,6 +94,6 @@ export const SousUnites = [
     { sid: 117, uid: 24, nom: 'Soméo' },
 ];
 
-export const getUnite = (uid) => Unites.find(u => u.uid === uid);
-export const getSousUnite = (sid) => SousUnites.find(s => s.sid === sid);
-export const getBranche = (bid) => branches.find(s => s.bid === bid);
+export const getUnite = uid => Unites.find(u => u.uid === uid);
+export const getSousUnite = sid => SousUnites.find(s => s.sid === sid);
+export const getBranche = bid => branches.find(s => s.bid === bid);
